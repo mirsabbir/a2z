@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $types = \App\Type::with('posts')->get();
-        return view('search')->with(['types' => $types]);
+        return view('editor.posts')->with(['types' => $types]);
     }
 
     /**

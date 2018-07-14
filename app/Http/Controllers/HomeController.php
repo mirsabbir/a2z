@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(Request $request){
         $latests = \App\Type::with('posts')->take(3)->get();
         $populars = \App\Type::with('popularPosts')->take(3)->get();
-        return view('post')->with(['latests'=>$latests,'populars'=>$populars]);
+        return view('index')->with(['latests'=>$latests,'populars'=>$populars]);
     }
     public function search(Request $request){
         
