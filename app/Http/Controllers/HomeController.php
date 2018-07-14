@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**
@@ -21,8 +21,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('home');
+    public function index(Request $request){
+        $latests = \App\Type::with('posts')->take(3)->get();
+        $populars = \App\Type::with('popularPosts')->take(3)->get();
+        return view('post')->with(['latests'=>$latests,'populars'=>$populars]);
     }
+    public function search(Request $request){
+        
+    }
+    public function type(Request $request){
+        
+    }
+    public function typePost(Request $request){
+        
+    }
+    
 }

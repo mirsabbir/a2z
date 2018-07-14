@@ -11,15 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::group(['prefix' => 'editor'], function(){
+    Route::resource('posts', 'PostController');
+    Route::resource('drafts', 'DraftController');
+});
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+Route::get('/', 'HomeController@index');
+Route::get('search' , 'HomeController@search')->name('search');
+Route::get('{type}', 'HomeController@type');
+Route::get('{type}/{slug}', 'HomeController@typePost');
+
+
+

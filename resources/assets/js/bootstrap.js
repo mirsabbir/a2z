@@ -12,6 +12,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('./Counting-Plugin/js/jquery.counterup.min.js');
+    require('./Counting-Plugin/js/custom.js');
+    require('./Counting-Plugin/js/jquery.waypoints.min.js');
 } catch (e) {}
 
 /**

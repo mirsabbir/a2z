@@ -8,6 +8,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import 'css/master.css';
+@import 'sass/master.scss';
+@import 'ionicons/css/ionicons.min.css';
+@import 'Counting-Plugin/css/style.css';
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
