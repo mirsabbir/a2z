@@ -13,10 +13,10 @@
         <link href="{{asset('css/app.css')}}" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg nav_custom">
+    <nav class="navbar navbar-expand-lg nav_custom">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png" alt="logo">
+                <a class="navbar-brand" href="/">
+                    <img src="{{asset('images/logo.png')}}" alt="logo">
                 </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="ion-android-menu"></span>
@@ -30,25 +30,26 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                         </li> -->
 
+                        @foreach($populars as $popular)
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-down" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Reviews
+                            {{$popular->name}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <div class="menu_item">
                                     <div class="menu_heading">
-                                        <h5>Latest Reviews post</h5>
+                                        <h5>Latest {{$popular->name}} post</h5>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="menu_image">
-                                                <a href="single-blog.html"><img src="images/menu/1.jpg" alt="image"></a>
+                                                <a href="{{$popular->name.'/'.$popular->posts[0]->slug}}"><img src="{{asset('storage/'.$popular->posts[0]->image)}}" alt="image"></a>
                                             </div>
                                         </div>
                                         <div class="col-9">
                                             <div class="menu_text">
-                                                <a href="single-blog.html">
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur amet quod, facere earum dolorum dignissimos esse eligendi rerum culpa cumque &rarr;</p>
+                                                <a href="{{$popular->name.'/'.$popular->posts[0]->slug}}">
+                                                    <p>{!! substr(strip_tags($popular->posts[0]->body),0,100) !!} &rarr;</p>
                                                 </a>
                                             </div>
                                         </div>
@@ -61,127 +62,34 @@
                                 <div class="menu_item">
                                     <div class="menu_link">
                                         <div class="menu_heading">
-                                            <h5>Popular Reviews post</h5>
+                                            <h5>Popular {{$popular->name}} post</h5>
                                         </div>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
+                                        <a href="{{$popular->name.'/'.$popular->posts[1]->slug}}">
+                                            <p> &diams; {{ substr($popular->posts[1]->title,0,60)}} &rarr;</p>
                                         </a>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
+                                        <a href="{{$popular->name.'/'.$popular->posts[2]->slug}}">
+                                            <p> &diams; {{ substr($popular->posts[2]->title,0,60)}}  &rarr;</p>
                                         </a>
                                     </div>
                                 </div>
 
                                     
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="blog.html">show more</a>
+                                <a class="dropdown-item" href="{{$popular->name}}">show more</a>
                             </div>
                         </li>
+                        @endforeach
 
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-down" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Coupon
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="menu_item">
-                                    <div class="menu_heading">
-                                        <h5>Latest Coupon post</h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="menu_image">
-                                                <a href="single-blog.html"><img src="images/menu/2.jpg" alt="image"></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="menu_text">
-                                                <a href="single-blog.html">
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur amet quod, facere earum dolorum dignissimos esse eligendi rerum culpa cumque &rarr;</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown-divider"></div>
-
-
-                                <div class="menu_item" href="#">
-                                    <div class="menu_link">
-                                        <div class="menu_heading">
-                                            <h5>Popular Coupon post</h5>
-                                        </div>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
-                                        </a>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                    
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="blog.html">show more</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-down" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Blog
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="menu_item">
-                                    <div class="menu_heading">
-                                        <h5>Latest Blog post</h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="menu_image">
-                                                <a href="single-blog.html"><img src="images/menu/3.jpg" alt="image"></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="menu_text">
-                                                <a href="single-blog.html">
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur amet quod, facere earum dolorum dignissimos esse eligendi rerum culpa cumque &rarr;</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown-divider"></div>
-
-
-                                <div class="menu_item" href="#">
-                                    <div class="menu_link">
-                                        <div class="menu_heading">
-                                            <h5>Popular Blog post</h5>
-                                        </div>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
-                                        </a>
-                                        <a href="single-blog.html">
-                                            <p> &diams; Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam consectetur &rarr;</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="blog.html">show more</a>
-                            </div>
-                        </li>  
                     </ul>
-
-                    <form action="#">
+                    <!-- search box -->
+                    <form action="{{route('search')}}">
                         <div class="search_box">
-                            <input class="form-control" type="search" placeholder="Search">
+                            <input class="form-control" type="search" placeholder="Search" name="q">
                             <button class="search_button ion-android-search" type="submit"></button>
                         </div>
                     </form>
                 </div>
+                <!-- search box for responsive -->
                 <form action="#">
                     <div class="search_box_2">
                         <input class="form-control" type="search" placeholder="Search">
@@ -189,8 +97,8 @@
                     </div>
                 </form>
             </div>
+            
         </nav>
-        <!-- nav section end -->
 
 
 
@@ -203,7 +111,7 @@
                         </div>
                         <div class="blog_single_content">
                             <figure>
-                                <a href=""><img src="{{asset('storage/'.$post->image)}}" alt="image"></a>
+                                <a href=""><img src="{{asset($post->image)}}" alt="image"></a>
                                 <figcaption>
                                     <i>Admin • {{$post->created_at}}</i>
                                 </figcaption>
@@ -218,72 +126,19 @@
                             </div>
 
                             <div class="row">
+                                @foreach($relateds as $related)
                                 <div class="col-lg-4">
                                     <div class="blog_content">
                                         <figure>
-                                            <a href="single-blog.html"><img src="images/slider/7.jpg" alt="image"></a>
+                                            <a href="{{'/'.$type.'/'.$related->slug}}"><img src="{{asset($related->image)}}" alt="image"></a>
                                             <figcaption>
-                                                <a href=""><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
+                                                <a href="{{$type.'/'.$related->slug}}"><h5>{{$related->title}}</h5></a>
+                                                <i>Admin • {{$related->created_at}}</i>
                                             </figcaption>
                                         </figure>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="blog_content">
-                                        <figure>
-                                            <a href="single-blog.html"><img src="images/slider/2.jpg" alt="image"></a>
-                                            <figcaption>
-                                                <a href=""><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog_content">
-                                        <figure>
-                                            <a href="single-blog.html"><img src="images/slider/3.jpg" alt="image"></a>
-                                            <figcaption>
-                                                <a href=""><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog_content">
-                                        <figure>
-                                            <a href="single-blog.html"><img src="images/slider/4.jpg" alt="image"></a>
-                                            <figcaption>
-                                                <a href="single-blog.html"><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog_content">
-                                        <figure>
-                                            <a href="single-blog.html"><img src="images/slider/5.jpg" alt="image"></a>
-                                            <figcaption>
-                                                <a href="single-blog.html"><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog_content">
-                                        <figure>
-                                            <a href="single-blog.html"><img src="images/slider/6.jpg" alt="image"></a>
-                                            <figcaption>
-                                                <a href="single-blog.html"><h5>Lorem ipsum dolor, sit amet consectetur</h5></a>
-                                                <i>Admin • 6/14/2018</i>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
 
@@ -292,156 +147,31 @@
 
                 <div class="col-lg-4">
                     <section class="aside">
+                        @foreach($populars as $popular)
                         <div class="latest_post">
                             <div class="heading">
-                                <h5>POPULAR REVIEWS</h5>
+                                <h5>POPULAR {{$popular->name}}</h5>
                             </div>
+                            @for($i=0;$i<4;$i++)
+                            <?php 
+                                $post = $popular->posts[$i];
+                            ?>
                             <div class="latest_post_all">
                                 <div class="row">
                                     <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/1.jpg" alt="images"></a>
+                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="images"></a>
                                     </div>
                                     <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
+                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><h6>{{$post->title}}</h6></a>
+                                        <i>Admin •{{ $post->created_at}}</i>
                                     </div>
                                 </div>
                             </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/2.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/3.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/4.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="blog.html"><button>BROWSE MORE</button></a>
+                            @endfor
+                        
+                            <a href="{{'/'.$popular->name}}"><button>BROWSE MORE</button></a>
                         </div>
-                        <div class="latest_post">
-                            <div class="heading">
-                                <h5>POPULAR COUPON</h5>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/5.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/6.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/7.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/8.jpg" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="blog.html"><button>BROWSE MORE</button></a>
-                        </div>
-                        <div class="latest_post">
-                            <div class="heading">
-                                <h5>POPULAR BLOG</h5>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/1.png" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/2.png" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/3.png" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="single-blog.html"><img src="images/menu/4.png" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="single-blog.html"><h6>Let Your Creativity Shine With These Top Website Builders for Artists</h6></a>
-                                        <i>Admin • 6/14/18</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="blog.html"><button>BROWSE MORE</button></a>
-                        </div>
+                        @endforeach
                     </section>
                 </div>
             </div>

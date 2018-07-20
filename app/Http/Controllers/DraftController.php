@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class DraftController extends Controller
 {
+
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,9 @@ class DraftController extends Controller
      */
     public function index()
     {
-        //
+        $drafts = \App\Draft::all();
+        $populars = \App\Type::with('popularPosts')->take(3)->get();
+        return view('editor.drafts')->with(['populars'=>$populars,'drafts'=>$drafts]);
     }
 
     /**
@@ -23,7 +30,8 @@ class DraftController extends Controller
      */
     public function create()
     {
-        //
+        $populars = \App\Type::with('popularPosts')->take(3)->get();
+        return view('editor.new')->with(['populars'=>$populars]);
     }
 
     /**
@@ -34,7 +42,88 @@ class DraftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /**
+         * validate the request
+         */
+
+         /**
+          * replace the tables
+          */
+
+
+          
+
+        if($request->save){
+            
+            $draft = new \App\Draft;
+            $draft->title = $request->title;
+            $draft->slug = $request->slug;
+            $draft->body = $request->content;
+            
+            $draft->type_id = $request->type;
+            
+
+            $name = $request->file('image')->getClientOriginalName();
+            $draft->image = $request->file('image')->store('public');
+
+            $image = \Storage::url($draft->image);
+
+            
+            $draft->image = $image;
+
+            $draft->save();
+            
+            return redirect('/editor/drafts');
+
+            
+        } else if($request->preview){
+            $draft = new \App\Draft;
+            $draft->title = $request->title;
+            $draft->slug = $request->slug;
+            $draft->body = $request->content;
+            
+            $draft->type_id = $request->type;
+            
+
+            $name = $request->file('image')->getClientOriginalName();
+            $draft->image = $request->file('image')->store('public');
+
+            $image = \Storage::url($draft->image);
+
+            
+            $draft->image = $image;
+
+            $populars = \App\Type::with('popularPosts')->take(3)->get();
+            return view('editor.preview')->with(['populars'=>$populars,'draft'=>$draft]);
+            
+        } else {
+
+            $draft = new \App\Post;
+            $draft->title = $request->title;
+            $draft->slug = $request->slug;
+            $draft->body = $request->content;
+            
+            
+            
+
+            $name = $request->file('image')->getClientOriginalName();
+            $draft->image = $request->file('image')->store('public');
+
+            $image = \Storage::url($draft->image);
+
+            
+            $draft->image = $image;
+            
+            $draft->count = 0;
+            \App\Type::find($request->type)->first()->posts()->save($draft);
+
+            
+            
+            $url = \App\Type::find($request->type)->name.'/'.$draft->slug;
+
+            return redirect($url);
+
+        }
     }
 
     /**
@@ -43,9 +132,9 @@ class DraftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(\App\Draft $draft)
+    {   $populars = \App\Type::with('popularPosts')->take(3)->get();
+        return view('editor.draft')->with(['populars'=>$populars,'draft'=>$draft]);
     }
 
     /**
@@ -54,9 +143,10 @@ class DraftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(\App\Draft $draft)
     {
-        //
+        $populars = \App\Type::with('popularPosts')->take(3)->get();
+        return view('editor.edit')->with(['populars'=>$populars,'draft'=>$draft]);
     }
 
     /**
@@ -77,8 +167,9 @@ class DraftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(\App\Draft $draft)
     {
-        //
+        $draft->delete();
+        return redirect('/editor/drafts');
     }
 }

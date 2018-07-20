@@ -7,7 +7,7 @@ use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use Searchable;
+    //use Searchable;
 
 
     public function getRouteKeyName(){

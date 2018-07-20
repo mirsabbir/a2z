@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>blog</title>
+        <title>single-blog</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <body>
     <nav class="navbar navbar-expand-lg nav_custom">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="index.html">
                     <img src="{{asset('images/logo.png')}}" alt="logo">
                 </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,69 +99,132 @@
             </div>
             
         </nav>
+        <!-- nav section end -->
+
+
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        
+        <script>
+        var editor_config = {
+            path_absolute : "/",
+            selector: "textarea.my-editor",
+            plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+            relative_urls: false,
+            file_browser_callback : function(field_name, url, type, win) {
+            var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+            var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+            var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+            if (type == 'image') {
+                cmsURL = cmsURL + "&type=Images";
+            } else {
+                cmsURL = cmsURL + "&type=Files";
+            }
+
+            tinyMCE.activeEditor.windowManager.open({
+                file : cmsURL,
+                title : 'Filemanager',
+                width : x * 0.8,
+                height : y * 0.8,
+                resizable : "yes",
+                close_previous : "no"
+            });
+            }
+        };
+
+        tinymce.init(editor_config);
+        </script>
 
 
 
 
-        <!-- main body -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <section class="blog">
+                <div class="col-lg-10">
+                    <section class="blog_single">
                         <div class="content_heading">
-                            <h2>{{$type}} posts</h2>
-                        </div>
-                        <div class="row">
-                            @foreach($posts as $post)
-                            <div class="col-lg-6">
-                                <div class="blog_content">
-                                    <figure>
-                                        <a href="{{'/'.$type.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="image"></a>
-                                        <figcaption>
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><h4>{{$post->title}}</h4></a>
-                                            <p>{{substr(strip_tags($post->body),0,60)}}
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><span>read more &rarr;</span></a> </p>
-                                            <i>Admin • {{$post->created_at}}</i>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                            @endforeach
-                          <div style="margin:auto;"> {{ $posts->links() }} </div> 
+                            <h2>New Post</h2>
+                        </div>  
+                        <form action="/editor/drafts" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="blog_single_content">
+                                <h5>Title</h5>
+                                <input type="text" class="form-control" name="title">
+                                <h5>Slug</h5>
+                                <input type="text" class="form-control" name="slug">
+                                <h5>category</h5>
+                                
+                                <select name="type">
+                                    
+                                    @foreach($populars as $popular)
+                                        <option value="{{$popular->id}}" >{{$popular->name}}</option>
+                                    @endforeach
+                                </select>
 
-                    </section>
-                   
-                </div>
-
-                <div class="col-lg-4">
-                    <section class="aside">
-                    @foreach($populars as $popular)
-                        <div class="latest_post">
-                            <div class="heading">
-                                <h5>POPULAR {{$popular->name}}</h5>
-                            </div>
-                            @for($i=0;$i<4;$i++)
-                            <?php 
-                                $post = $popular->posts[$i];
-                            ?>
-                            <div class="latest_post_all">
+                                <h5>Image</h5>
+                                <input type="file" name="image">
+                                <h5>Post Body</h5>
+                                <textarea cols="80" rows="20" name="content" class="form-control my-editor"></textarea>
+                                
                                 <div class="row">
-                                    <div class="col-3">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="images"></a>
+                                    <div class="col">
+                                        <section class="blog_single">
+                                            <div class="content_heading">
+                                                <input type="submit" name="preview" value="Preview" class="form-control btn btn-primary">
+                                                
+                                            </div>
+                                        </section>
                                     </div>
-                                    <div class="col-9">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><h6>{{$post->title}}</h6></a>
-                                        <i>Admin •{{ $post->created_at}}</i>
+
+                                     <div class="col">
+                                        <section class="blog_single">
+                                            <div class="content_heading">
+                                                <input type="submit" name="save" value="save as draft" class="form-control btn btn-primary">
+                                                
+                                            </div>
+                                        </section>
                                     </div>
+                                    <div class="col">
+                                        <section class="blog_single">
+                                            <div class="content_heading">
+                                            <input type="submit" name="publish" value="Publish" class="form-control btn btn-primary">
+                                                
+                                            </div>
+                                        </section>
+                                    </div>
+
                                 </div>
+
+
+                                
                             </div>
-                            @endfor
-                        
-                            <a href="{{'/'.$popular->name}}"><button>BROWSE MORE</button></a>
-                        </div>
-                        @endforeach
+                        </form>
                     </section>
                 </div>
+
+                 
+                
+                
             </div>
          </div>
 
@@ -174,7 +237,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="images/logo.png" alt="logo">
+                        <img src="{{asset('images/logo.png')}}" alt="logo">
                         <p><strong>Our Mission:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aspernatur, id dicta nulla tempora enim expedita praesentium reiciendis? Quibusdam nemo a voluptate eos repudiandae maiores reprehenderit illum mollitia at ratione.</p>
                     </div>
                     <div class="col-lg-3">
@@ -252,7 +315,7 @@
     
 
 
-       <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <!-- js for nav -->
         <script>

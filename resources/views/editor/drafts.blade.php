@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>blog</title>
+        <title>search-result</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <body>
     <nav class="navbar navbar-expand-lg nav_custom">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="index.html">
                     <img src="{{asset('images/logo.png')}}" alt="logo">
                 </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,6 +99,7 @@
             </div>
             
         </nav>
+        <!-- nav section end -->
 
 
 
@@ -109,72 +110,48 @@
                 <div class="col-lg-8">
                     <section class="blog">
                         <div class="content_heading">
-                            <h2>{{$type}} posts</h2>
+                            <h2>Drafts</h2>
                         </div>
-                        <div class="row">
-                            @foreach($posts as $post)
-                            <div class="col-lg-6">
-                                <div class="blog_content">
-                                    <figure>
-                                        <a href="{{'/'.$type.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="image"></a>
-                                        <figcaption>
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><h4>{{$post->title}}</h4></a>
-                                            <p>{{substr(strip_tags($post->body),0,60)}}
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><span>read more &rarr;</span></a> </p>
-                                            <i>Admin • {{$post->created_at}}</i>
-                                        </figcaption>
-                                    </figure>
+                        <div class="search_blog">
+                            @foreach($drafts as $draft)
+                            <div class="blog_content">
+                                <div class="latest_post_all">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <a href="{{'/editor/drafts/'.$draft->slug}}"><img src="{{asset($draft->image)}}" alt="images"></a>
+                                        </div>
+                                        <div class="col-9">
+                                            <a href="{{'/editor/drafts/'.$draft->slug}}"><h5>{{$draft->title}}</h5></a>
+                                            <p>{{substr(strip_tags($draft->body),0,100)}}<a href="{{'/editor/drafts/'.$draft->slug}}"><span>read more &rarr;</span></a> </p>
+                                            <i>Admin • {{ $draft->created_at }}</i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
-                          <div style="margin:auto;"> {{ $posts->links() }} </div> 
+                        </div>
 
                     </section>
-                   
                 </div>
 
                 <div class="col-lg-4">
-                    <section class="aside">
-                    @foreach($populars as $popular)
-                        <div class="latest_post">
-                            <div class="heading">
-                                <h5>POPULAR {{$popular->name}}</h5>
-                            </div>
-                            @for($i=0;$i<4;$i++)
-                            <?php 
-                                $post = $popular->posts[$i];
-                            ?>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><h6>{{$post->title}}</h6></a>
-                                        <i>Admin •{{ $post->created_at}}</i>
-                                    </div>
-                                </div>
-                            </div>
-                            @endfor
-                        
-                            <a href="{{'/'.$popular->name}}"><button>BROWSE MORE</button></a>
+                    <section class="blog_single">
+                        <div class="content_heading">
+                            <a href="/editor/drafts/create" style="text-decoration:none;color:white;"><h4>New</h4></a>
                         </div>
-                        @endforeach
+                        
                     </section>
                 </div>
+
             </div>
-         </div>
-
-
-
-
-
+                       
+        </div>
         <!-- footer section start here -->
         <footer>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="images/logo.png" alt="logo">
+                        <img src="{{asset('images/logo.png')}}" alt="logo">
                         <p><strong>Our Mission:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aspernatur, id dicta nulla tempora enim expedita praesentium reiciendis? Quibusdam nemo a voluptate eos repudiandae maiores reprehenderit illum mollitia at ratione.</p>
                     </div>
                     <div class="col-lg-3">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>blog</title>
+        <title>single-blog</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <body>
     <nav class="navbar navbar-expand-lg nav_custom">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="index.html">
                     <img src="{{asset('images/logo.png')}}" alt="logo">
                 </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,69 +99,49 @@
             </div>
             
         </nav>
+        <!-- nav section end -->
 
 
-
-
-        <!-- main body -->
          <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <section class="blog">
+                    <section class="blog_single">
                         <div class="content_heading">
-                            <h2>{{$type}} posts</h2>
+                            <h4>{{$draft->title}}</h4>
                         </div>
-                        <div class="row">
-                            @foreach($posts as $post)
-                            <div class="col-lg-6">
-                                <div class="blog_content">
-                                    <figure>
-                                        <a href="{{'/'.$type.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="image"></a>
-                                        <figcaption>
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><h4>{{$post->title}}</h4></a>
-                                            <p>{{substr(strip_tags($post->body),0,60)}}
-                                            <a href="{{'/'.$type.'/'.$post->slug}}"><span>read more &rarr;</span></a> </p>
-                                            <i>Admin • {{$post->created_at}}</i>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                            @endforeach
-                          <div style="margin:auto;"> {{ $posts->links() }} </div> 
-
+                        <div class="blog_single_content">
+                            <figure>
+                                <a href=""><img src="{{asset($draft->image)}}" alt="image"></a>
+                                <figcaption>
+                                    <i>Admin • {{$draft->created_at}}</i>
+                                </figcaption>
+                            </figure>
+                            
+                            {!! $draft->body !!}
+                            
+                        </div>
                     </section>
-                   
                 </div>
 
                 <div class="col-lg-4">
-                    <section class="aside">
-                    @foreach($populars as $popular)
-                        <div class="latest_post">
-                            <div class="heading">
-                                <h5>POPULAR {{$popular->name}}</h5>
-                            </div>
-                            @for($i=0;$i<4;$i++)
-                            <?php 
-                                $post = $popular->posts[$i];
-                            ?>
-                            <div class="latest_post_all">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><img src="{{asset($post->image)}}" alt="images"></a>
-                                    </div>
-                                    <div class="col-9">
-                                        <a href="{{'/'.$popular->name.'/'.$post->slug}}"><h6>{{$post->title}}</h6></a>
-                                        <i>Admin •{{ $post->created_at}}</i>
-                                    </div>
-                                </div>
-                            </div>
-                            @endfor
-                        
-                            <a href="{{'/'.$popular->name}}"><button>BROWSE MORE</button></a>
+                    <section class="blog_single">
+                        <div class="content_heading">
+                            <a href="/editor/drafts/{{$draft->slug}}/edit" style="text-decoration:none;color:white;"><h4>edit</h4></a>
                         </div>
-                        @endforeach
+                        
+                    </section>
+                    <section class="blog_single">
+                        <div class="content_heading">
+                            <form action="/editor/drafts/{{$draft->slug}}" method= "post">
+                                @method('DELETE')
+                                @csrf
+                                <input type="submit" name="delete" value = "Delete" class="btn btn-primary">
+                            </form>
+                        </div>
+                        
                     </section>
                 </div>
+                
             </div>
          </div>
 
@@ -174,7 +154,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="images/logo.png" alt="logo">
+                        <img src="{{asset('images/logo.png')}}" alt="logo">
                         <p><strong>Our Mission:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aspernatur, id dicta nulla tempora enim expedita praesentium reiciendis? Quibusdam nemo a voluptate eos repudiandae maiores reprehenderit illum mollitia at ratione.</p>
                     </div>
                     <div class="col-lg-3">
@@ -252,7 +232,7 @@
     
 
 
-       <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <!-- js for nav -->
         <script>

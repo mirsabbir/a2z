@@ -3,6 +3,10 @@
 
 /* nav style start */
 
+.navbar{
+    padding: 0;
+}
+
 .nav_custom{
     position: fixed;
     width: 100%;
@@ -10,14 +14,13 @@
     background: $black-dark;
     .navbar-brand{
         img{
-            width: 100%;
+            width: 90%;
         }
     }
     ul{
         li{
             a{
                 color: $primary-light;
-                font-size: 18px;
                 transition: all .7s;
                 &:hover{
                     color: $white-secondary;
@@ -32,6 +35,9 @@
         }
     }
     
+}
+.dropdown-divider {
+    margin: 2px 0;
 }
 .menu_item{
     padding: 5px 15px;
@@ -49,6 +55,11 @@
 }
 .menu_heading{
     color: $primary-light;
+}
+.menu_text, .menu_link{
+    p{
+        margin-bottom: 3px;
+    }
 }
 
 .dropdown-item{
@@ -92,6 +103,7 @@
     .dropdown {
         &:hover .dropdown-menu {
             display: block !important;
+            padding: 4px 0;
         }
     }
     .menu_item{
@@ -127,7 +139,7 @@
 /* header style start */
 header{
     background: $primary-color;
-    padding:153px 0 100px;
+    padding:90px 0px 15px;
     .header_text{
         margin: 30px 0;
         h1{
@@ -140,7 +152,7 @@ header{
         button{
             -webkit-clip-path: polygon(0% 0%, 90% 1%, 100% 50%, 90% 100%, 0% 100%);
             clip-path: polygon(0% 0%, 90% 1%, 100% 50%, 90% 100%, 0% 100%);
-            padding: 12px 30px 12px 25px;
+            padding: 8px 30px 8px 25px;
             background: $primary-light;
             color: $white-secondary;
             font-weight: 600;
@@ -151,7 +163,9 @@ header{
     }
     .header_image{
         img{
-            width: 100%;
+            width: 80%;
+            display: block;
+            margin: 0 auto;
         }
     }
 }
@@ -163,7 +177,7 @@ header{
 /* slider style start */
 .slider{
     background: $black-dark;
-    padding: 90px 0 60px;
+    padding: 40px 0px 15px;
     figure{
         position: relative;
         img{
@@ -193,7 +207,7 @@ header{
     .carousel-indicators{
         position: static;
         cursor: pointer;
-        margin-top: 46px;
+        margin-top: 18px;
     }
 }
 /* slider style end */
@@ -205,7 +219,7 @@ header{
 /* latest style start */
 .latest{
     background: $white-secondary;
-    padding: 90px 0 50px;
+    padding: 40px 0px 10px;
     
 }
 .latest_post{
@@ -215,15 +229,15 @@ header{
         
         background: $primary-light;
         h5{
-            padding: 15px 0 12px;
+            padding: 10px 0 7px;
             color:$white-secondary;
             font-weight: 600;
         }
     }
     background: $white-primary;
-    padding: 0 10px 20px;
+    padding: 0 10px 10px;
     box-shadow: 0 0 5px 1px $gray-light;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     button{
         width: 100%;
         padding: 5px 0;
@@ -251,6 +265,7 @@ header{
         }
         a h6{
             transition: all .7s;
+            margin-bottom: 0;
             &:hover{
                 color: $primary-light;
             }
@@ -271,7 +286,7 @@ header{
 /* about style start */
 .about{
     background: $primary-color;
-    padding: 100px 0;
+    padding: 50px 0;
     h2{
         color: $white-secondary;
     }
@@ -297,6 +312,7 @@ header{
 /* counter style start */
 .numbers{
     background: $white-secondary;
+    padding: 30px 0px;
 }
 /* counter style end */
 /* home page end */
@@ -306,7 +322,7 @@ header{
 
 /* blog page style start */
 .blog{
-    padding: 100px 0 0;
+    padding: 60px 0 0;
     
 }
 .blog_content{
@@ -366,7 +382,7 @@ header{
 
 /* aside style start */
 .aside{
-    padding: 115px 0 0;
+    padding: 75px 0 0;
 }
 /* aside style end */
 /* blog page style end */
@@ -378,7 +394,7 @@ header{
 
 /* blog-single page style start */
 .blog_single{
-    padding: 100px 0 0;
+    padding: 60px 0 0;
 }
 .blog_single_content{
     margin: 0 0 50px;
@@ -403,16 +419,16 @@ header{
 /* blog page responsive style */
 @media screen and (max-width: 992px){
     .blog{
-        padding: 150px 0 0;
+        padding: 120px 0 0;
     }
     .blog_single{
-        padding: 150px 0 0;
+        padding: 120px 0 0;
     }
     .blog_related{
         margin: 0;
     }
     .aside{
-        padding: 50px 0 0;
+        padding: 30px 0 0;
     }
 }
 /* blog-single page style end */
@@ -423,7 +439,7 @@ header{
 
 /* search-page style start here */
 .search_blog{
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 /* responsive */
@@ -441,9 +457,9 @@ header{
 /* footer style sratr */
 footer{
     background: $black-dark;
-    padding: 70px 0;
+    padding: 50px 0 40px;
     img{
-        max-width: 340px;
+        max-width: 300px;
         width: 100%;
     }
     .footer_select_option{
@@ -484,7 +500,7 @@ footer{
         color: $white-secondary;
         display: block;
         text-align: center;
-        padding: 40px 0 0;
+        padding: 10px 0 0;
         font-size: 14px;
     }
 }
@@ -493,30 +509,6 @@ footer{
 
 
 
-/* responsive style all */
-@media only screen and (max-width: 1200px){
-    p{
-        font-size: 14px;
-    }
-    h1{
-        font-size: 36px;
-    }
-    h2{
-        font-size: 28px;
-    }
-    h4{
-        font-size: 22px;
-    }
-    h5{
-        font-size: 18px;
-    }
-    h6{
-        font-size: 15px;
-    }
-    .navbar{
-        padding: 0;
-    }
-}
 
 @media only screen and (max-width: 992px){
     .navbar{
